@@ -1,55 +1,67 @@
+/* Program made by Houston Koester
+ * All functions are separated into the ConversionFunctions class in a separate file for modularity
+ * 
+ * Currently developed for one way conversions, need to implement more functions
+ * ^EX^ - gram -> stone && gram -> pound exist but pound -> gram does not.
+ */
 package main;
 
 import java.util.Scanner;
 
 public class Converter {
-
 	public static void main(String[] args) {
+		//Laying out the different scanners and the accessor to Functions class
+		ConversionFunctions CF = new ConversionFunctions();
 		Scanner s = new Scanner(System.in);
 		Scanner dist = new Scanner(System.in);
 		Scanner mass = new Scanner(System.in);
 		Scanner energy = new Scanner(System.in);
 		Scanner temp = new Scanner(System.in);
+		
+		//main menu repeatable selector, end main with in = 9
 		while(true) {
-			sysout("Please select an option:\n1. Time\n2. Distances\n3. Temperatures\n4. Mass\n9. Close the program\\n");
+			sysout("Please select an option:\n1. Time\n2. Distances\n3. Temperatures\n4. Mass\n9. Close the program");
 	
 			int menuSelect = s.nextInt();
-			
 			switch(menuSelect) {
-			case 1: //energy converter menu
+			
+			//Energy conversion menu switch
+			case 1: 
 				while(true) {
-					sysout("Please select from the energy converter menu or enter 4 to return to the main menu\n4. Return to main menu\n");
+					sysout("Please select from the energy converter menu or enter 4 to return to the main menu\n1. Joules to BTU (British Thermal Units)\n2. Joules to Foot-Pounds\n3. Joules to Calories\n4. Return to main menu");
 					int energyselect = energy.nextInt();
 					double joules;
+					double convert;
 					switch(energyselect) {
 					
-					case 1: 
-						sysout("Please enter how many BTU (British Thermal Units) you want to convert to joules: ");
-						double BTU = energy.nextDouble();
-						joules = mileToMeter(BTU);
-						sysout(BTU + " British Thermal Units to Joules is " + joules + " joules of energy.");
+					case 1: //joules to BTU
+						sysout("Please enter how many joules you want to convert to BTU (British Thermal Units): ");
+						joules = energy.nextDouble();
+						convert = CF.joulToBTU(joules);
+						sysout(joules + " Joules to British Thermal Units is " + convert + " BTU.");
 						break;
 					
-					case 2:
-						sysout("Please enter how many foot-pounds you want to convert to joules: ");
-						double footlb = energy.nextDouble();
-						joules = mileToMeter(footlb);
-						sysout(footlb + " Foot-Pounds to Joules is " + joules + " joules of energy.");
+					case 2://joules to FootPound
+						sysout("Please enter how many joules you want to convert to foot-pounds: ");
+						joules = energy.nextDouble();
+						convert = CF.joulToFP(joules);
+						sysout(joules + " Joules to Foot-Pounds is " + convert + " Foot-Pounds.");
 						break;
-					case 3:
+						
+					case 3: //joules to calories
 						sysout("Please enter how many calories you want to convert to joules: ");
-						double calories = energy.nextDouble();
-						joules = mileToMeter(calories);
-						sysout(calories + " calories to Joules is " + joules + " joules of energy.");
+						joules = energy.nextDouble();
+						convert = CF.joulToCal(joules);
+						sysout(joules + " Joules to Calories is " + convert + " calories.");
 						break;
-					case 4:
+						
+					case 4: //main return break from menu loop
 						sysout("Returning to the main menu.");
 						break;
 					default:
 						sysout("Please make a selection from the menu");
-				
 					}
-					if(energyselect == 4) {
+					if(energyselect == 4) { //break to main
 						break;
 						}
 					}
@@ -59,108 +71,119 @@ public class Converter {
 				
 			case 2://dist converter menu
 				while(true) {
-					sysout("Please select from the distance converter menu or enter 4 to return to the main menu\n1. Miles to Meters\n2. Feet to Meters\n3. Inches to Meters\n4. Return to main menu\n");
+					sysout("Please select from the distance converter menu or enter 4 to return to the main menu\n1. Meters to Miles\n2. Meters to Feet\n3. Meters to Inches\n4. Return to main menu");
 					int distselect = dist.nextInt();
 					double meters;
+					double conversion;
 					switch(distselect) {
-					case 1: 
-						sysout("Please enter how many miles you want to convert to meters: ");
-						double miles = dist.nextDouble();
-						meters = mileToMeter(miles);
-						sysout(miles + " miles to meters is " + meters + " meters.");
+					
+					case 1: //meters to miles
+						sysout("Please enter how many meters you want to convert to miles: ");
+						meters = dist.nextDouble();
+						conversion = CF.meterToMile(meters);
+						sysout(meters + " meters to miles is " + conversion + " miles.");
 						break;
 					
-					case 2:
-						sysout("Please enter how many feet you want to convert to meters: ");
-						double feet = dist.nextDouble();
-						meters = feetToMeter(feet);
-						sysout(feet + " feet to meters is " + meters + " meters.");
+					case 2: //meters to feet
+						sysout("Please enter how many meters you want to convert to feet: ");
+						meters = dist.nextDouble();
+						conversion = CF.meterToFeet(meters);
+						sysout(meters + " meters to feet is " + conversion + " feet.");
 						break;
-					case 3:
-						sysout("Please enter how many inches you want to convert to meters: ");
-						double inch = dist.nextDouble();
-						meters = inchToMeter(inch);
-						sysout(inch + " inches to meters is " + meters + " meters.");
+						
+					case 3: //meters to inches
+						sysout("Please enter how many meters you want to convert to inches: ");
+						meters = dist.nextDouble();
+						conversion = CF.meterToInch(meters);
+						sysout(meters + " meters to inches is " + conversion + " inches.");
 						break;
-					case 4:
+						
+					case 4: //main return break from menu loop
 						sysout("Returning to the main menu.");
 						break;
 					default:
 						sysout("Please make a selection from the menu");
 				
 					}
-					if(distselect == 4) {
-						break;
-						}
-					}
-				
-				
-			case 3: //temp converter menu
-				while(true) {
-					sysout("Please select from the temperature converter menu or enter 4 to return to the main menu\n1. Celsuis to Fahrenheit\n2. Celsuis to Kelvin\n3. Celsuis to Rankine\n4. Return to main menu\n");
-					int tempselect = temp.nextInt();
-					double temps;
-					double celsuius;
-					switch(tempselect) {
-					case 1: 
-						sysout("Please enter how many degrees in Celsuis you want to convert to Fahrenheit: ");
-						celsuius = temp.nextDouble();
-						temps = inchToMeter(celsuius);
-						sysout(celsuius + " in Celsuis is " + temps + " degrees in Fahrenheit.");
-						break;
-					
-					case 2:
-						sysout("Please enter how many degrees in Celsuis you want to convert to Kelvin: ");
-						celsuius = temp.nextDouble();
-						temps = inchToMeter(celsuius);
-						sysout(celsuius + " in Celsuis is " + temps + " degrees in Kelvin.");
-						break;
-					case 3:
-						sysout("Please enter how many degrees in Celsuis you want to convert to Rankine: ");
-						celsuius = temp.nextDouble();
-						temps = inchToMeter(celsuius);
-						sysout(celsuius + " in Celsuis is " + temps + " degrees in Rankine.");
-						break;
-					case 4:
-						sysout("Returning to the main menu.");
-						break;
-					default:
-						sysout("Please make a selection from the menu");
-				
-					}
-					if(tempselect == 4) {
+					if(distselect == 4) {//break to main
 						break;
 						}
 					}
 				break;
+				
+			case 3: //temp converter menu
+				while(true) {
+					sysout("Please select from the temperature converter menu or enter 4 to return to the main menu\n1. Celsuis to Fahrenheit\n2. Celsuis to Kelvin\n3. Celsuis to Rankine\n4. Return to main menu");
+					int tempselect = temp.nextInt();
+					double temps;
+					double celsuius;
+					switch(tempselect) {
+					
+					case 1: // celsuis to fehrenheit
+						sysout("Please enter how many degrees in Celsuis you want to convert to Fahrenheit: ");
+						celsuius = temp.nextDouble();
+						temps = CF.celsToFahren(celsuius);
+						sysout(celsuius + " in Celsuis is " + temps + " degrees in Fahrenheit.");
+						break;
+					
+					case 2: // celsuis to kelvin
+						sysout("Please enter how many degrees in Celsuis you want to convert to Kelvin: ");
+						celsuius = temp.nextDouble();
+						temps = CF.celsToKelvin(celsuius);
+						sysout(celsuius + " in Celsuis is " + temps + " degrees in Kelvin.");
+						break;
+						
+					case 3: // celsuis to Rankine
+						sysout("Please enter how many degrees in Celsuis you want to convert to Rankine: ");
+						celsuius = temp.nextDouble();
+						temps = CF.celsToRankine(celsuius);
+						sysout(celsuius + " in Celsuis is " + temps + " degrees in Rankine.");
+						break;
+						
+					case 4: 
+						sysout("Returning to the main menu.");
+						break;
+					default:
+						sysout("Please make a selection from the menu");
+				
+					}
+					if(tempselect == 4) { //break from menu
+						break;
+						}
+					}
+				break; //break to main
 				
 				
 				
 			case 4://mass converter menu
 				while(true) {
-					sysout("Please select from the mass converter menu or enter 4 to return to the main menu\n1. Grams to Stone\n2. Grams to Pound\n3. Grams to Ounce\n4. Return to main menu\n");
+					sysout("Please select from the mass converter menu or enter 4 to return to the main menu\n1. Grams to Stone\n2. Grams to Pound\n3. Grams to Ounce\n4. Return to main menu");
 					int massSelect = mass.nextInt();
 					double grams;
+					double weight;
 					switch(massSelect) {
-					case 1: 
+					
+					case 1: //gram to stone
 						sysout("Please enter how many Grams you want to convert to Stone weight: ");
 						grams = mass.nextDouble();
-						double stone = inchToMeter(grams);
-						sysout(grams + " in Grams is " + stone + " Stone in weight.");
+						weight = CF.gramToStone(grams);
+						sysout(grams + " in Grams is " + weight + " Stone in weight.");
 						break;
 					
-					case 2:
+					case 2: //gram to pound
 						sysout("Please enter how many Grams you want to convert to Pounds weight: ");
 						grams = mass.nextDouble();
-						double pound = inchToMeter(grams);
-						sysout(grams + " in Grams is " + pound + " Pounds in weight.");
+						weight = CF.gramToPound(grams);
+						sysout(grams + " in Grams is " + weight + " Pounds in weight.");
 						break;
-					case 3:
+						
+					case 3: //gram to ounce
 						sysout("Please enter how many Grams you want to convert to Ounces weight: ");
 						grams = mass.nextDouble();
-						double ounces = inchToMeter(grams);
-						sysout(grams + " in Grams is " + ounces + " Ounces in weight.");
+						weight = CF.gramToOunce(grams);
+						sysout(grams + " in Grams is " + weight + " Ounces in weight.");
 						break;
+						
 					case 4:
 						sysout("Returning to the main menu.");
 						break;
@@ -168,16 +191,17 @@ public class Converter {
 						sysout("Please make a selection from the menu");
 				
 					}
-					if(massSelect == 4) {
+					if(massSelect == 4) {//break loop
 						break;
 						}
 					}
-				break;
+				break; //break main
 				
 				
 				
 				
 			case 9:
+				//close rss bfore closing program
 				dist.close();
 				s.close();
 				energy.close();
@@ -192,28 +216,10 @@ public class Converter {
 	}
 
 	
-	
+	//basic system out println minfunction
 	public static void sysout(String str) {
 		System.out.println(str);
 	}
 	
-	//Energy converters
-
-	//distance converters
-	public static double mileToMeter(double i) {
-		double meters = i*1609.344;
-		return meters;
-	}
-	public static double feetToMeter(double i) {
-		double meters = i*.3048;
-		return meters;
-	}
-	public static double inchToMeter(double i) {
-		double meters = i*.0254;
-		return meters;
-	}
 	
-	//Temp converters
-	
-	//Mass converters
 }
