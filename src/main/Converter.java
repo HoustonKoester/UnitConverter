@@ -5,7 +5,6 @@
  * ^EX^ - gram -> stone && gram -> pound exist but pound -> gram does not.
  */
 package main;
-
 import java.util.Scanner;
 
 public class Converter {
@@ -18,10 +17,9 @@ public class Converter {
 		Scanner energy = new Scanner(System.in);
 		Scanner temp = new Scanner(System.in);
 		
-		//main menu repeatable selector, end main with in = 9
+		//main menu repeatable selector, end main with input of 9 spaces 5-8 left for other conversion types
 		while(true) {
 			sysout("Please select an option:\n1. Time\n2. Distances\n3. Temperatures\n4. Mass\n9. Close the program");
-	
 			int menuSelect = s.nextInt();
 			switch(menuSelect) {
 			
@@ -49,7 +47,7 @@ public class Converter {
 						break;
 						
 					case 3: //joules to calories
-						sysout("Please enter how many calories you want to convert to joules: ");
+						sysout("Please enter how many joules you want to convert to calories: ");
 						joules = energy.nextDouble();
 						convert = CF.joulToCal(joules);
 						sysout(joules + " Joules to Calories is " + convert + " calories.");
@@ -210,7 +208,6 @@ public class Converter {
 				System.exit(0);
 			default:
 				sysout("Please make a selection from the menu");
-
 			}
 		}
 	}
@@ -219,7 +216,5 @@ public class Converter {
 	//basic system out println minfunction
 	public static void sysout(String str) {
 		System.out.println(str);
-	}
-	
-	
+	}	
 }
