@@ -16,7 +16,7 @@ public class Converter {
 			int menuSelect = s.nextInt();
 			
 			switch(menuSelect) {
-			case 1: //time converter menu
+			case 1: //energy converter menu
 				while(true) {
 					sysout("Please select from the energy converter menu or enter 4 to return to the main menu\n4. Return to main menu\n");
 					int energyselect = energy.nextInt();
@@ -138,19 +138,28 @@ public class Converter {
 				
 			case 4://mass converter menu
 				while(true) {
-					sysout("Please select from the mass converter menu or enter 4 to return to the main menu\n1. Stone to Grams\n2. Pound to Grams\n3. Ounce to Grams\n4. Return to main menu\n");
+					sysout("Please select from the mass converter menu or enter 4 to return to the main menu\n1. Grams to Stone\n2. Grams to Pound\n3. Grams to Ounce\n4. Return to main menu\n");
 					int massSelect = mass.nextInt();
-					double masses;
+					double grams;
 					switch(massSelect) {
 					case 1: 
-
+						sysout("Please enter how many Grams you want to convert to Stone weight: ");
+						grams = mass.nextDouble();
+						double stone = inchToMeter(grams);
+						sysout(grams + " in Grams is " + stone + " Stone in weight.");
 						break;
 					
 					case 2:
-
+						sysout("Please enter how many Grams you want to convert to Pounds weight: ");
+						grams = mass.nextDouble();
+						double pound = inchToMeter(grams);
+						sysout(grams + " in Grams is " + pound + " Pounds in weight.");
 						break;
 					case 3:
-
+						sysout("Please enter how many Grams you want to convert to Ounces weight: ");
+						grams = mass.nextDouble();
+						double ounces = inchToMeter(grams);
+						sysout(grams + " in Grams is " + ounces + " Ounces in weight.");
 						break;
 					case 4:
 						sysout("Returning to the main menu.");
