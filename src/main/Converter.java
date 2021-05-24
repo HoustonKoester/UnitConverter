@@ -1,7 +1,7 @@
 /* Program made by Houston Koester
  * All functions are separated into the ConversionFunctions class in a separate file for modularity
  * 
- * Currently developed for one way conversions, need to implement more functions
+ * Currently developed for one way conversions, need to implement more functions for two way conversions
  * ^EX^ - gram -> stone && gram -> pound exist but pound -> gram does not.
  */
 package main;
